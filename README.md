@@ -1,21 +1,29 @@
 # cli-support
 
-This shell script allows you to offer remote linux command line support over SSH to users behind a NAT. 
+This shell script allows you to offer remote linux command line support over SSH to your clients that are behind a NAT. 
 It is comparable to a reverse shell, but it does not require the support agent to setup a listening port first.
 The script allows the user to see what is executed and also allows the user to interact (in the socat version).
 
-For the netcat version (almost no requirements):
+## netcat version
 
-    on the client run:
+The client that needs support should run:
+
       ./nc.sh user@hostname
-    on the server run:
+
+You (the support agent) should run on the server:
+
       nc 0 6000
 
-For the socat version (requires socat and screen):
+This version has almost no requirements, but does not allow both parties to type (client can only view).
 
-    on the client run:
+### socat version (requires socat and screen)
+
+The client that needs support should run:
+
       ./socat.sh user@hostname
-    on the server run:
+
+You (the support agent) should run on the server:
+
       socat file:`tty`,raw,echo=0 tcp-connect:localhost:6000
 
-This last version should be preferred as it shares the session in such a way that both parties can type.
+This version should be preferred as it shares the session in such a way that both parties can view AND type.
