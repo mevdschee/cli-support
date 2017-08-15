@@ -18,4 +18,4 @@ For the socat version (requires socat and screen):
     on the server run:
       socat file:`tty`,raw,echo=0 tcp-connect:localhost:6000
 
-This last version should be preferred as it shares the session and both parties can type.
+This last version should be preferred as it shares the session in such a way that both parties can type.
