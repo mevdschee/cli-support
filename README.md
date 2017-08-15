@@ -1,4 +1,4 @@
-# reverse-shell.sh
+# cli-support
 
 This shell script allows you to offer remote linux command line support over SSH to users behind a NAT. 
 It is comparable to a reverse shell, but it does not require the support agent to setup a listening port first.
