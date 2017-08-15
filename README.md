@@ -1,8 +1,8 @@
 # reverse-shell.sh
 
-This is a shell script that allows you to offer remote linux support to somebody who is behind a NAT over SSH. 
-It is not really a reverse shell as it allows the user that requests the support to always connect and wait
-for the person providing support to act second.
+This shell script allows you to offer remote linux command line support over SSH to users behind a NAT. 
+It is comparable to a reverse shell, but it does not require the support agent to setup a listening port first.
+The script allows the user to see what is executed and also allows the user to interact (in the socat version).
 
 For the netcat version (almost no requirements):
 
