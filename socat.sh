@@ -18,7 +18,7 @@ if [ $? -ne 0 ]; then
   exit 1;
 fi
 src_dir="${1:?Usage $0 [user@hostname]}"
-ssh -R $PORT:localhost:$PORT -N $1 &
+ssh -R $PORT:localhost:$PORT -N $@ &
 PID_SSH=$!
 tmux new-session -d -s $SESSION
 socat system:"tmux attach -t $SESSION",pty,raw,echo=0,stderr,setsid,sigint tcp-listen:$PORT,bind=localhost,reuseaddr &

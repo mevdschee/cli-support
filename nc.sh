@@ -17,7 +17,7 @@ if [ -e /tmp/$SESSION ]; then
   rm /tmp/$SESSION
 fi
 mkfifo /tmp/$SESSION
-ssh -R $PORT:localhost:$PORT -N $1 &
+ssh -R $PORT:localhost:$PORT -N $@ &
 PID_SSH=$!
 cat /tmp/$SESSION | tee /dev/stderr | bash -li 2>&1 | tee /dev/stderr | nc -l localhost $PORT > /tmp/$SESSION
 kill $PID_SSH
