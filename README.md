@@ -16,7 +16,7 @@ You (the support agent) should run on the server:
 
 This version has almost no requirements, but does not allow both parties to type (client can only view).
 
-### socat version (requires socat and screen)
+### socat version (requires socat and tmux)
 
 The client that needs support should run:
 
