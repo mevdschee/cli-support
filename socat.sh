@@ -22,7 +22,7 @@ ssh -R $PORT:localhost:$PORT -N $@ &
 PID_SSH=$!
 tmux new-session -d -s $SESSION
 set -- $(stty size) # $1 = rows $2 = columns
-socat system:"stty cols $2; stty rows $1; tmux attach -t $SESSION",pty,raw,echo=0,stderr,setsid,sigint tcp-listen:$PORT,bind=localhost,reuseaddr &
+socat system:"stty rows $1; stty cols $2; tmux attach -t $SESSION",pty,raw,echo=0,stderr,setsid,sigint tcp-listen:$PORT,bind=localhost,reuseaddr &
 PID_SOCAT=$!
 tmux attach -t $SESSION
 tmux kill-session -t $SESSION >/dev/null 2>&1
