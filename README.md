@@ -27,3 +27,13 @@ You (the support agent) should run on the server:
       socat file:`tty`,raw,echo=0 tcp-connect:localhost:6000
 
 This version should be preferred as it shares the session in such a way that both parties can view AND type.
+
+### Installation
+
+Execute the following commands:
+
+    sudo apt install socat tmux
+    curl https://raw.githubusercontent.com/mevdschee/cli-support/master/socat.sh -O socat.sh
+    chmod 755 socat.sh
+    
+Now you are ready to run the client.
