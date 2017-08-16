@@ -21,7 +21,7 @@ src_dir="${1:?Usage $0 [user@hostname]}"
 ssh -R $PORT:localhost:$PORT -N $@ &
 PID_SSH=$!
 tmux new-session -d -s $SESSION
-socat system:"tmux attach -t $SESSION",pty,raw,echo=0,stderr,setsid,sigint tcp-listen:$PORT,bind=localhost,reuseaddr &
+socat exec:"tmux attach -t $SESSION",pty,raw,echo=0,stderr,setsid,sigint tcp-listen:$PORT,bind=localhost,reuseaddr &
 PID_SOCAT=$!
 tmux attach -t $SESSION
 tmux kill-session -t $SESSION >/dev/null 2>&1
