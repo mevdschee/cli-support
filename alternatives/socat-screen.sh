@@ -23,11 +23,10 @@ ssh -R $PORT:localhost:$PORT -N $1 &
 PID_SSH=$!
 screen -m -d $SESSION
 set -- $(stty size) # $1 = rows $2 = columns
-CMD="stty rows $1; stty cols $2;"
+CMD="stty rows $1; stty cols $2"
 socat system:"$CMD & screen -A -x $SESSION",pty,stderr,setsid,sigint,sane\
   tcp-listen:$PORT,bind=localhost,reuseaddr &
 PID_SOCAT=$!
 screen -r $SESSION
 screen -X -S $SESSION quit >/dev/null 2>&1
 kill $PID_SSH $PID_SOCAT
-
