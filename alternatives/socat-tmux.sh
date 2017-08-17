@@ -7,6 +7,7 @@
 #     socat file:`tty`,raw,echo=0 tcp-connect:localhost:6000
 #
 PORT=6000
+SESSION=support
 which socat >/dev/null 2>&1
 if [ $? -ne 0 ]; then
   echo 'Cannot find socat'
@@ -23,10 +24,10 @@ PID_SSH=$!
 tmux new-session -d -s $SESSION
 set -- $(stty size) # $1 = rows $2 = columns
 CMD="stty rows $1; stty cols $2;"
-socat system:"$CMD & tmux attach -t support",pty,stderr,setsid,sigint,sane\
+socat system:"$CMD & tmux attach -t $SESSION",pty,stderr,setsid,sigint,sane\
   tcp-listen:$PORT,bind=localhost,reuseaddr &
 PID_SOCAT=$!
-tmux new-session -s support
-tmux kill-session -t support >/dev/null 2>&1
+tmux attach -t $SESSION
+tmux kill-session -t $SESSION >/dev/null 2>&1
 kill $PID_SSH $PID_SOCAT
 
