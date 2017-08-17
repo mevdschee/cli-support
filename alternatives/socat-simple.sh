@@ -2,7 +2,7 @@
 #!/bin/bash
 #
 # on the client run:
-#     ./socat.sh user@hostname
+#     ./socat-simple.sh user@hostname
 # on the server run:
 #     socat file:`tty`,raw,echo=0 tcp-connect:localhost:6000
 #
@@ -15,5 +15,6 @@ fi
 src_dir="${1:?Usage $0 [user@hostname]}"
 ssh -R $PORT:localhost:$PORT -N $1 &
 PID_SSH=$!
-socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp-listen:$PORT,bind=localhost,reuseaddr
+socat exec:'bash -li',pty,stderr,setsid,sigint,sane\
+  tcp-listen:$PORT,bind=localhost,reuseaddr
 kill $PID_SSH

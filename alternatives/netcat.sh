@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # on the client run:
-#     ./nc.sh user@hostname
+#     ./netcat.sh user@hostname
 # on the server run:
 #     nc 0 6000
 #
@@ -19,6 +19,11 @@ fi
 mkfifo /tmp/$SESSION
 ssh -R $PORT:localhost:$PORT -N $@ &
 PID_SSH=$!
-cat /tmp/$SESSION | tee /dev/stderr | bash -li 2>&1 | tee /dev/stderr | nc -l localhost $PORT > /tmp/$SESSION
+cat /tmp/$SESSION \
+| tee /dev/stderr \
+| bash -li 2>&1 \
+| tee /dev/stderr \
+| nc -l localhost $PORT \
+> /tmp/$SESSION
 kill $PID_SSH
 rm /tmp/$SESSION

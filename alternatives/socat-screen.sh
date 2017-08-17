@@ -2,7 +2,7 @@
 #!/bin/bash
 #
 # on the client run:
-#     ./socat.sh user@hostname
+#     ./socat-screen.sh user@hostname
 # on the server run:
 #     socat file:`tty`,raw,echo=0 tcp-connect:localhost:6000
 #
@@ -21,7 +21,8 @@ src_dir="${1:?Usage $0 [user@hostname]}"
 ssh -R $PORT:localhost:$PORT -N $1 &
 PID_SSH=$!
 screen -m -d support
-socat exec:'screen -A -x support',pty,stderr,setsid,sigint,sane tcp-listen:$PORT,bind=localhost,reuseaddr &
+socat exec:'screen -A -x support',pty,stderr,setsid,sigint,sane\
+  tcp-listen:$PORT,bind=localhost,reuseaddr &
 PID_SOCAT=$!
 screen -r support
 screen -X -S support quit >/dev/null 2>&1
