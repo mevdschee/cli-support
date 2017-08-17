@@ -2,7 +2,7 @@
 
 This shell script allows you to offer remote linux command line support over SSH to your clients that are behind a NAT. 
 It is comparable to a reverse shell, but it does not require the support agent to setup a listening port first.
-The script allows the user to see what is executed and also allows the user to interact (in the socat version).
+The script allows the user to see what is executed and also allows the user to interact (and change the screen size).
 
 ## netcat version
 
