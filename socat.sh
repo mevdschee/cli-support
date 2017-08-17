@@ -17,7 +17,7 @@ if [ $? -ne 0 ]; then
   echo 'Cannot find tmux'
   exit 1;
 fi
-src_dir="${1:?Usage $0 [user@hostname]}"
+${1:?Usage $0 [user@hostname]}
 ssh -R $PORT:localhost:$PORT -N $@ &
 PID_SSH=$!
 tmux new-session -d -s $SESSION

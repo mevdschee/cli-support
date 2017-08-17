@@ -12,7 +12,7 @@ if [ $? -ne 0 ]; then
   echo 'Cannot find nc'
   exit 1;
 fi
-src_dir="${1:?Usage $0 [user@hostname]}"
+${1:?Usage $0 [user@hostname]}
 if [ -e /tmp/$SESSION ]; then
   rm /tmp/$SESSION
 fi

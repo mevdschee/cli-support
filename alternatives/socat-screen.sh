@@ -17,11 +17,13 @@ if [ $? -ne 0 ]; then
   echo 'Cannot find screen'
   exit 1;
 fi
-src_dir="${1:?Usage $0 [user@hostname]}"
+${1:?Usage $0 [user@hostname]}
 ssh -R $PORT:localhost:$PORT -N $1 &
 PID_SSH=$!
 screen -m -d support
-socat exec:'screen -A -x support',pty,stderr,setsid,sigint,sane\
+set -- $(stty size) # $1 = rows $2 = columns
+CMD="stty rows $1; stty cols $2;"
+socat system:"$CMD & screen -A -x support",pty,stderr,setsid,sigint,sane\
   tcp-listen:$PORT,bind=localhost,reuseaddr &
 PID_SOCAT=$!
 screen -r support
