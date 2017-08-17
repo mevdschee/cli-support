@@ -33,9 +33,9 @@ CMD="stty rows $1;\
        stty -F \$TTY2 cols \$2;\
        kill -28 \$\$;\
      done"
-socat system:"$CMD & tmux attach -t $SESSION",pty,raw,echo=0,stderr,setsid,sigint tcp-listen:$PORT,bind=localhost,reuseaddr &
+socat system:"$CMD & tmux attach -t $SESSION",pty,raw,echo=0,stderr,setsid,sigint\
+  tcp-listen:$PORT,bind=localhost,reuseaddr &
 PID_SOCAT=$!
 tmux attach -t $SESSION
 tmux kill-session -t $SESSION >/dev/null 2>&1
 kill $PID_SSH $PID_SOCAT
-
