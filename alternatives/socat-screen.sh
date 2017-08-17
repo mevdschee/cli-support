@@ -7,6 +7,7 @@
 #     socat file:`tty`,raw,echo=0 tcp-connect:localhost:6000
 #
 PORT=6000
+SESSION=support
 which socat >/dev/null 2>&1
 if [ $? -ne 0 ]; then
   echo 'Cannot find socat'
@@ -20,13 +21,13 @@ fi
 ${1:?Usage $0 [user@hostname]}
 ssh -R $PORT:localhost:$PORT -N $1 &
 PID_SSH=$!
-screen -m -d support
+screen -m -d $SESSION
 set -- $(stty size) # $1 = rows $2 = columns
 CMD="stty rows $1; stty cols $2;"
-socat system:"$CMD & screen -A -x support",pty,stderr,setsid,sigint,sane\
+socat system:"$CMD & screen -A -x $SESSION",pty,stderr,setsid,sigint,sane\
   tcp-listen:$PORT,bind=localhost,reuseaddr &
 PID_SOCAT=$!
-screen -r support
-screen -X -S support quit >/dev/null 2>&1
+screen -r $SESSION
+screen -X -S $SESSION quit >/dev/null 2>&1
 kill $PID_SSH $PID_SOCAT
 
